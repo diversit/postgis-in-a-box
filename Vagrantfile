@@ -5,11 +5,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "precise64-current"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "precise64"
+#  config.vm.box = "precise64-current"
+#  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
   config.vm.network :forwarded_port, guest: 5432, host: 15432
-  config.vm.network "private_network", ip: "172.16.10.11"
+  config.vm.network "private_network", ip: "10.0.2.15"
 
   config.ssh.forward_agent = true
 
@@ -17,12 +18,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "1024"]
-    end
-    config.vm.provision :ansible do |ansible|
-      ansible.host_key_checking = false
-      ansible.playbook = "provisioning/playbook.yml"
-      ansible.inventory_path = "provisioning/hosts-vagrant"
-      ansible.verbose = false
-    end
+      vb.memory = 2048
+      vb.cpus   = 2
+  end
+
+  # Run installation
+  config.vm.provision "shell", inline: "/bin/sh /vagrant/post_vm_install.sh"
+
+#  config.vm.provision :ansible do |ansible|
+#      ansible.host_key_checking = false
+#      ansible.playbook = "provisioning/playbook.yml"
+#      ansible.inventory_path = "provisioning/hosts-vagrant"
+#      ansible.verbose = false
+#  end
 end

@@ -21,7 +21,8 @@
       sudo: yes
       with_items:
         - postgresql
-        - postgresql-9.1-postgis-2.0
+        - postgresql-9.1-postgis-2.1
+        - postgresql-9.1-postgis-scripts
         - postgresql-contrib
         - python-psycopg2
         # postgresql package requires correct locale when installing
