@@ -1,0 +1,10 @@
+Een overzichtje van aantal spacial queries:
+
+Opzoeken land obv point.
+Retourneert alleen land waarin punt valt.
+
+select name, ST_Contains(geom, ST_GeomFromText('POINT(16.3919144 48.218056)', 4326)) as contains from geo_countries order by contains desc limit 1; // result == Austria
+
+select name, ST_Contains(geom, ST_GeomFromText('POINT(5.370034 51.667619)', 4326)) as contains from geo_countries order by contains desc limit 1; // result == NL
+
+LET OP! Coordinaten van GoogleMaps moeten omgedraaid worden !!
