@@ -31,7 +31,7 @@ sudo -u postgres psql -d uselessapp -c "CREATE EXTENSION postgis_tiger_geocoder;
 echo "Loading GIS data in uselessapp db"
 #sudo -u postgres psql -d uselessapp -f /vagrant/gis-data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.sql
 #sudo -u postgres psql -d uselessapp -f /vagrant/gis-data/ne_10m_admin_0_sovereignty/ne_10m_admin_0_sovereignty.sql
-sudo -u postgres shp2pgsql -I -s 2249 /vagrant/gis-data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp public.geo_countries | sudo -u postgres psql -d uselessapp 
-sudo -u postgres shp2pgsql -I -s 2249 /vagrant/gis-data/ne_10m_admin_0_sovereignty/ne_10m_admin_0_sovereignty.shp public.geo_sovereignty | sudo -u postgres psql -d uselessapp 
+sudo -u postgres shp2pgsql -I -s 4326 /vagrant/gis-data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp public.geo_countries | sudo -u postgres psql -d uselessapp 
+sudo -u postgres shp2pgsql -I -s 4326 /vagrant/gis-data/ne_10m_admin_0_sovereignty/ne_10m_admin_0_sovereignty.shp public.geo_sovereignty | sudo -u postgres psql -d uselessapp 
 
 echo "Done!"
